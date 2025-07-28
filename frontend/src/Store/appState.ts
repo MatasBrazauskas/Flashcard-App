@@ -3,7 +3,7 @@ import { type APP_STATE, type APP_STATE_CURR } from "./appStateUtil";
 import { NAME } from "../Utils/constants";
 
 const initialState : APP_STATE_CURR = {
-    appState : localStorage.getItem(NAME) ? 'AUTH' : 'MAIN'
+    appState : localStorage.getItem(NAME) === null ? 'AUTH' : 'MAIN'
 }
 
 const appSlice = createSlice({
