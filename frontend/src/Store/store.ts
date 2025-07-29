@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import appStateReducer from './appState';
 import errorsStateReducer from './errorState';
+import appStateReducer from './appState';
 
 const store = configureStore({
     reducer: {
-        appState : appStateReducer,
+        appState: appStateReducer,
         errorsState: errorsStateReducer 
     }
 })

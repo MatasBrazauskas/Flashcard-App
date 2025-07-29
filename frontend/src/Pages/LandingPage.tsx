@@ -1,27 +1,11 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import { type OAuthProps } from "../Utils/oauthStateUtils";
 
-import { useDispatch } from "react-redux";
-import { setAppState } from "../Store/appState";
-
-import { type CredentialResponse } from "@react-oauth/google";
-
-import { NAME } from "../Utils/constants";
-
-function LandingPage() {
-
-    const dispatch = useDispatch();
-
-    const changeState = (e: CredentialResponse) => {
-        const encodedJWT: {name:string} = jwtDecode(e.credential!)
-        localStorage.setItem(NAME, String(encodedJWT.name))
-
-        dispatch(setAppState('MAIN'))
-    }
+function LandingPage({addCredentials, setLoggedIn} : OAuthProps) {
 
     return (
         <GoogleLogin 
-            onSuccess={(e) => changeState(e)} 
+            onSuccess={(e) => { addCredentials(e), setLoggedIn(true)}} 
         />
     );
 }

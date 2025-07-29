@@ -3,40 +3,30 @@ import { createRoot } from 'react-dom/client'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import { CLIENT_ID } from './Utils/constants';
+import store from './Store/store';
 
-import store, { type RootState } from './Store/store';
 import { Provider } from 'react-redux';
-import { useSelector } from 'react-redux';
 
-const ErrorsComponent = lazy(() => import('./Components/ErrorsComponent'));
+import { NAME } from './Utils/constants';
+import { addCredentials } from './Utils/oauthStateUtils';
+
 const LandingPage = lazy(() => import('./Pages/LandingPage'));
-const HomePage = lazy(() => import('./Pages/HomePage'))
+const MainPage = lazy(() => import('./Pages/MainPage'))
 
 
 function App() {
-    const appState = useSelector((state: RootState) => state.appState.appState);
-    const [PageToRender, setPageToRender] = useState<React.ComponentType>(LandingPage); 
+
+    const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        switch (appState) {
-            case 'AUTH':
-                setPageToRender(() => LandingPage);
-                break;
-            case 'MAIN':
-                setPageToRender(() => HomePage);
-                break;
-            default:
-                console.warn(`Unexpected appState: ${appState}. Defaulting to LandingPage.`);
-                setPageToRender(() => LandingPage);
-                break;
-        }
-    }, [appState]); 
+        const informationAbsent = localStorage.getItem(NAME) === null;
+        setLoggedIn(!informationAbsent);
+    }, []);
 
     return (
-      <>
-        <ErrorsComponent/>
-        <PageToRender />
-      </>
+    <>
+        { loggedIn ? <MainPage/> : <LandingPage addCredentials={addCredentials} setLoggedIn={setLoggedIn}/> }
+    </>
     );
 }
 
