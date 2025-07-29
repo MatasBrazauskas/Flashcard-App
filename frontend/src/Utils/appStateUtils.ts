@@ -1,6 +1,6 @@
 export type APP_STATE = 
-    | 'AUTH'
-    | 'MAIN'
+    | 'HOME'
+    | 'LIBRARY'
     | 'NEW'
 
 export type APP_STATE_CURR = {

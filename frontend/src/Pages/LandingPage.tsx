@@ -5,7 +5,7 @@ function LandingPage({addCredentials, setLoggedIn} : OAuthProps) {
 
     return (
         <GoogleLogin 
-            onSuccess={(e) => { addCredentials(e), setLoggedIn(true)}} 
+            onSuccess={(e) => { addCredentials(e), setLoggedIn(true) }} 
         />
     );
 }
