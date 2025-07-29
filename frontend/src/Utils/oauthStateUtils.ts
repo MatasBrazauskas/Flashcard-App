@@ -8,7 +8,6 @@ export type OAUTH_STATE = {
 
 export type OAuthProps = {
     addCredentials: (e : CredentialResponse) => void,
-    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export const addCredentials = (e : CredentialResponse) => {
