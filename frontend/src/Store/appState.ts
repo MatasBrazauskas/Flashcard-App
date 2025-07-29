@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type APP_STATE, type APP_STATE_CURR } from "./appStateUtil";
+import { type APP_STATE, type APP_STATE_CURR } from "../Types/appStateTypes";
 import { NAME } from "../Utils/constants";
 
 const initialState : APP_STATE_CURR = {

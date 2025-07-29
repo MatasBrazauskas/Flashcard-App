@@ -8,12 +8,13 @@ import store, { type RootState } from './Store/store';
 import { Provider } from 'react-redux';
 import { useSelector } from 'react-redux';
 
+const ErrorsComponent = lazy(() => import('./Components/ErrorsComponent'));
 const LandingPage = lazy(() => import('./Pages/LandingPage'));
-const MainPage = lazy(() => import('./Pages/MainPage'))
+const HomePage = lazy(() => import('./Pages/HomePage'))
+
 
 function App() {
     const appState = useSelector((state: RootState) => state.appState.appState);
-
     const [PageToRender, setPageToRender] = useState<React.ComponentType>(LandingPage); 
 
     useEffect(() => {
@@ -22,7 +23,7 @@ function App() {
                 setPageToRender(() => LandingPage);
                 break;
             case 'MAIN':
-                setPageToRender(() => MainPage);
+                setPageToRender(() => HomePage);
                 break;
             default:
                 console.warn(`Unexpected appState: ${appState}. Defaulting to LandingPage.`);
@@ -32,7 +33,10 @@ function App() {
     }, [appState]); 
 
     return (
+      <>
+        <ErrorsComponent/>
         <PageToRender />
+      </>
     );
 }
 
