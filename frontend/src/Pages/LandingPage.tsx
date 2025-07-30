@@ -2,10 +2,10 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-import { type OAuthProps } from "../Utils/oauthStateUtils";
 import { MAIN_PAGE_URL, NAME } from "../Utils/constants";
+import { addCredentials } from "../Utils/oauthStateUtils";
 
-function LandingPage({addCredentials} : OAuthProps) {
+function LandingPage() {
     const navigation = useNavigate();
 
     useEffect(() => {

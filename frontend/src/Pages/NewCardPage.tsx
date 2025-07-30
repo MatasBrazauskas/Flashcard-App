@@ -1,4 +1,4 @@
-function NewCardPage() {
+function NewCardComponent() {
 
     return (
         <>
@@ -7,4 +7,4 @@ function NewCardPage() {
     )
 }
 
-export default NewCardPage;
+export default NewCardComponent;

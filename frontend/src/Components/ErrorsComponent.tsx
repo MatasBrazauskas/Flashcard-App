@@ -9,6 +9,7 @@ function ErrorsComponent() {
 
     return (
         <>
+            <div>ErrorComponent</div>
             {errors.map((error, ) => {
                 <div>{error}</div>
             })}
