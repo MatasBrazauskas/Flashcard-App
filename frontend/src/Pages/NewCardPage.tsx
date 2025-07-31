@@ -1,10 +1,15 @@
-function NewCardComponent() {
+import NewQuestionComponent from '../Components/NewCard/NewQuestionComponent';
+
+function NewCardPage() {
 
     return (
-        <>
-            <div>NewCardPage</div>
-        </>
+        <div>
+            <div>Create New Flash Card Set</div>
+
+            <NewQuestionComponent />
+            <NewQuestionComponent />
+        </div>
     )
 }
 
-export default NewCardComponent;
+export default NewCardPage;

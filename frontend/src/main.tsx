@@ -8,9 +8,9 @@ import store from './Store/store';
 
 import { Provider } from 'react-redux';
 
-import { LANDING_PAGE_URL, MAIN_PAGE_URL, HOME_PAGE_URL, LIBRARY_PAGE_URL, NEW_CARD_PAGE_URL } from './Utils/constants';
+import { OAUTH_PAGE_URL, MAIN_PAGE_URL, HOME_PAGE_URL, LIBRARY_PAGE_URL, NEW_CARD_PAGE_URL } from './Utils/constants';
 
-const LandingPage = lazy(() => import('./Pages/LandingPage'));
+const LandingPage = lazy(() => import('./Pages/OAuthPage'));
 const MainPage = lazy(() => import('./Pages/MainPage'));
 
 const HomeComponent = lazy(() => import('./Pages/HomePage'));
@@ -21,7 +21,7 @@ function App() {
     return (
     <BrowserRouter>
       <Routes>
-        <Route path={LANDING_PAGE_URL} element={<LandingPage />} />
+        <Route path={OAUTH_PAGE_URL} element={<LandingPage />} />
         <Route path={MAIN_PAGE_URL} element={<MainPage />}>
           <Route path={HOME_PAGE_URL} element={<HomeComponent />} />
           <Route path={LIBRARY_PAGE_URL} element={<LibraryComponent />} />
