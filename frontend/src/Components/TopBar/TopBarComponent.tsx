@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { HOME_PAGE_URL, LIBRARY_PAGE_URL, NEW_CARD_PAGE_URL } from "../../Utils/constants";
-import { NAME, PICTURE, PICTURES_HEIGHT} from "../../Utils/constants";
+import { HOME_PAGE_URL, LIBRARY_PAGE_URL, NEW_CARD_PAGE_URL } from "../../Constants/constants";
+import { NAME, PICTURE, PICTURES_HEIGHT} from "../../Constants/constants";
 
 import './TopBarStyle.css';
 

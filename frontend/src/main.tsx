@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { CLIENT_ID } from './Utils/constants';
+import { CLIENT_ID } from './Constants/constants';
 import store from './Store/store';
 
 import { Provider } from 'react-redux';
 
-import { OAUTH_PAGE_URL, MAIN_PAGE_URL, HOME_PAGE_URL, LIBRARY_PAGE_URL, NEW_CARD_PAGE_URL } from './Utils/constants';
+import { OAUTH_PAGE_URL, MAIN_PAGE_URL, HOME_PAGE_URL, LIBRARY_PAGE_URL, NEW_CARD_PAGE_URL } from './Constants/constants';
 
 const LandingPage = lazy(() => import('./Pages/OAuthPage'));
 const MainPage = lazy(() => import('./Pages/MainPage'));

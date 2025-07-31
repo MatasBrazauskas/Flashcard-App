@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import errorsStateReducer from './errorState';
+import flashCardStateReducer from './flashCardState';
 
 const store = configureStore({
     reducer: {
-        errorsState: errorsStateReducer 
+        ERRORS_STATE_NAME: errorsStateReducer,
+        FLASH_CARD_STATE_NAME: flashCardStateReducer, 
     }
 })
 

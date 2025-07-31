@@ -1,5 +1,5 @@
 import { type CredentialResponse } from "@react-oauth/google";
-import { NAME, PICTURE } from "./constants";
+import { NAME, PICTURE } from "../Constants/constants";
 import { jwtDecode } from "jwt-decode";
 
 export const addCredentials = (e : CredentialResponse) => {

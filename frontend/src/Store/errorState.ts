@@ -1,23 +1,28 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type ERRORS } from "../Utils/errorStateUtils";
+import { ERRORS_STATE_NAME, type ERRORS } from "../Utils/errorStateUtils";
 
 const initialState : ERRORS = {
     errors : [],
 }
 
 const errorsSlice = createSlice({
-    name: 'errorsState',
+    name: ERRORS_STATE_NAME,
     initialState,
     reducers: {
         addError : (state : ERRORS, action: PayloadAction<string>) => {
-            state.errors.push(action.payload);
-            console.log(state.errors);
+
+            if(!state.errors.includes(action.payload)){
+                state.errors.push(action.payload);
+            }
         },
-        clearErrors : (state : ERRORS) => {
+        clearAllErrors : (state : ERRORS) => {
             state.errors.length = 0;
+        },
+        clearError: (state: ERRORS, action: PayloadAction<string>) => {
+            state.errors = state.errors.filter(error => error !== action.payload);
         }
     }
 })
 
-export const { addError, clearErrors } = errorsSlice.actions;
+export const { addError, clearAllErrors, clearError } = errorsSlice.actions;
 export default errorsSlice.reducer;
