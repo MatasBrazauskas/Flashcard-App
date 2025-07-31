@@ -1,0 +1,12 @@
+.question{
+    width: 100%;
+}
+
+.top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bottom{
+    display: flex;
+}

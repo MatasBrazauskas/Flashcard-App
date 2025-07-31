@@ -1,5 +1,4 @@
-export const TERM_LENGTH_ERROR = "Too Long Term";
-export const DEFINITION_LENGTH_ERROR = "Too Long Definition";
+export const LENGTH_ERROR = 'Entries that exceed the character limit will be truncated.';
 
 export const TERM_LENGTH_MAX = 5;
 export const DEFINITION_LENGTH_MAX = 256;

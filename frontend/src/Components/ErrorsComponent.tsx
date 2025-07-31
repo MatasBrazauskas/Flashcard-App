@@ -7,7 +7,6 @@ function ErrorsComponent() {
 
     return (
         <div>
-            <div>ErrorComponent</div>
             {errors.map((error, i) => {
                 return <div key={i}>{error}</div>
             })}
