@@ -10,7 +10,6 @@ import lombok.ToString;
 
 @Data
 @Entity
-@ToString
 @Table(name = "Questions")
 public class Questions
 {

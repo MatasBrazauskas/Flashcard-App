@@ -1,5 +1,8 @@
 export const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-export const CONTROLLER_URL = import.meta.env.VITE_CONTROLLER_URL;
+const BACKEND_URL = import.meta.env.VITE_CONTROLLER_URL;
+
+export const FLASH_CARD_CONTROLLER_URL = BACKEND_URL + '/flashCardSet';
+export const LIBRARY_CONTROLLER_URL = BACKEND_URL + '/library';
 
 export const NAME = 'name';
 

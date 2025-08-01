@@ -9,5 +9,6 @@ import java.util.List;
 public class FlashCardSetDTO
 {
     private String title;
+    private String name;
     private List<Questions> questions;
 }

@@ -4,37 +4,26 @@ import com.example.demo.DTOs.FlashCardSetDTO;
 import com.example.demo.Service.FlashCardService;
 import com.example.demo.Service.QuestionService;
 import jakarta.validation.Valid;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/flashCardSet")
-public class Controller
+public class FlashCardController
 {
-    @Lazy
     private final FlashCardService flashCardService;
-    @Lazy
     private final QuestionService questionService;
 
-    public Controller(FlashCardService flashCardService, QuestionService questionService){
+    public FlashCardController(FlashCardService flashCardService, QuestionService questionService){
         this.flashCardService = flashCardService;
         this.questionService = questionService;
     }
 
-    @GetMapping
-    public void temp()
-    {
-        System.out.println("Working");
-    }
-
     @PostMapping
-    public ResponseEntity<?> createFlashCardSet(@Valid @RequestBody FlashCardSetDTO flashCardsetDTO)
+    public ResponseEntity<?> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
     {
-        System.out.println(flashCardsetDTO.getTitle());
-        System.out.println(flashCardsetDTO.getQuestions());
-
-        var flashCard = flashCardService.addFlashCardSet(flashCardsetDTO.getTitle());
+        var flashCard = flashCardService.addFlashCardSet(flashCardsetDTO.getTitle(), flashCardsetDTO.getName());
         if(flashCard.isEmpty()){
             return ResponseEntity.badRequest().build();
         }

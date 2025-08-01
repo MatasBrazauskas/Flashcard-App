@@ -1,5 +1,7 @@
-import { CONTROLLER_URL } from '../Constants/constants';
+import { FLASH_CARD_CONTROLLER_URL } from '../Constants/constants';
 import type { FlashCardInfo } from '../Utils/flashCardStatUtils';
+
+import { NAME } from '../Constants/constants';
 
 async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]): Promise<string> {
 
@@ -12,13 +14,14 @@ async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]
     }
 
     const requestBody = {
+        name: localStorage.getItem(NAME!),
         title: title,
         questions: tempArr,
     };
 
     try {
         console.log(requestBody);
-        const response = await fetch(CONTROLLER_URL, {
+        const response = await fetch(FLASH_CARD_CONTROLLER_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
