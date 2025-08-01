@@ -14,7 +14,7 @@ public class CORSConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Apply CORS to all paths ("/**") in your API
-                .allowedOrigins(allowedOrigins)
+                .allowedOrigins(allowedOrigins, "http://localhost:5173")
                 .allowedMethods("*") // Allowed HTTP methods
                 .allowedHeaders("*") // Allowed headers for the actual request
                 .allowCredentials(true) // Allow sending of cookies, authorization headers, etc.

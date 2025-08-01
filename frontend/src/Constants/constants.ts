@@ -1,4 +1,5 @@
 export const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+export const CONTROLLER_URL = import.meta.env.VITE_CONTROLLER_URL;
 
 export const NAME = 'name';
 

@@ -13,6 +13,11 @@ function NewCardPage() {
     const {title, dispatchTitle} = useTitle();
     const dispatch = useDispatch();
 
+    const temp = async () => {
+        const message = await addNewFlashCardSet(title, flashCards);
+        console.log(message);
+    }
+
     return (
         <div className='newcardpage'>
             <div>Create a new flashcard set</div>
@@ -27,7 +32,7 @@ function NewCardPage() {
             })}
 
             <button onClick={() => dispatch(addCard())}>Add a Card</button>
-            <button onClick={() => addNewFlashCardSet(title)}>Create</button>
+            <button onClick={() => temp()}>Create</button>
         </div>
     )
 
