@@ -18,7 +18,6 @@ public class Questions
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private FlashCardSet flashCardSet;

@@ -30,6 +30,7 @@ public class QuestionService
             }
             return Optional.of(questions);
         } catch (Exception e){
+            System.out.println(e.getMessage() + " addQuestions");
             return Optional.empty();
         }
     }

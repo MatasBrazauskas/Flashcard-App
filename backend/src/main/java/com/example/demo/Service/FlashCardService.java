@@ -29,6 +29,7 @@ public class FlashCardService
         }
         catch (Exception e)
         {
+            System.out.println(e.getMessage() + " addFlashCardSet");
             return Optional.empty();
         }
     }
