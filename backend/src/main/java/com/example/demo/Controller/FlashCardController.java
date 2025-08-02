@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.Utils.Routes;
+
 @RestController
-@RequestMapping("/flashCardSet")
+@RequestMapping(Routes.FlashCardRouter.FLASH_CARD_ROUTE)
 public class FlashCardController
 {
     private final FlashCardService flashCardService;

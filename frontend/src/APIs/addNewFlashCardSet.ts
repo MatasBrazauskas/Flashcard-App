@@ -1,30 +1,27 @@
-import { FLASH_CARD_CONTROLLER_URL } from '../Constants/constants';
+import { FLASH_CARD_ROUTE, JWT } from '../Constants/constants';
 import type { FlashCardInfo } from '../Utils/flashCardStatUtils';
 
 import { NAME } from '../Constants/constants';
 
 async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]): Promise<string> {
 
-    /*fix the tempArr variables and clean up the api */
-    const tempArr = []
-
-    for(let i = 0; i < flashCardArray.length; i++)
-    {
-        tempArr.push({term: flashCardArray[i].term, definition: flashCardArray[i].definition});
-    }
-
     const requestBody = {
         name: localStorage.getItem(NAME!),
         title: title,
-        questions: tempArr,
+        questions: flashCardArray.map((fl) => ({ term: fl.term, definition: fl.definition }))
     };
+
+    console.log(requestBody);
+
+    const jetToken = sessionStorage.getItem(JWT);
 
     try {
         console.log(requestBody);
-        const response = await fetch(FLASH_CARD_CONTROLLER_URL, {
+        const response = await fetch(FLASH_CARD_ROUTE, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jetToken}`, 
             },
             body: JSON.stringify(requestBody),
         });

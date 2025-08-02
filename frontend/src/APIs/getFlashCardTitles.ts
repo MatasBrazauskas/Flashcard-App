@@ -1,16 +1,18 @@
-import { LIBRARY_CONTROLLER_URL } from "../Constants/constants";
+import { LIBRARY_ROUTE, JWT } from "../Constants/constants";
 
-async function getFlashCardTitles(name: string) : Promise<string | null> {
+async function getFlashCardTitles() : Promise<string[] | null> {
+    const jetToken = sessionStorage.getItem(JWT);
 
     try{
-        const response = await fetch(LIBRARY_CONTROLLER_URL + `/${name}`, {
+        const response = await fetch(LIBRARY_ROUTE, {
             method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jetToken}`,
+            }
         });
 
-        console.log(response);
-
         if(response.ok){
-            return 'ok';
+            return response.json();
         }
 
     } catch(e){

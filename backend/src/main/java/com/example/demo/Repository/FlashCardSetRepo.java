@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Lazy
 @Repository
@@ -16,5 +17,5 @@ public interface FlashCardSetRepo extends JpaRepository<FlashCardSet, Integer>
 {
     @Transactional
     @Query(value = "SELECT * FROM flash_card_set WHERE name = :name", nativeQuery = true)
-    public List<FlashCardSet> findByName(@Param("name")String name);
+    public Optional<FlashCardSet> findByName(@Param("name")String name);
 }

@@ -1,24 +1,34 @@
 import { useState, useEffect } from 'react';
 import getFlashCardTitles from '../APIs/getFlashCardTitles';
-import { NAME } from '../Constants/constants';
 
 function LibraryPage() {
 
     const [titles, setTitles] = useState<string[]>([]);
 
     useEffect(() => {
-        const name = localStorage.getItem(NAME);
-        const apiCall = async (name : string) => {
+        const apiCall = async () => {
+            const response = await getFlashCardTitles();
 
-            const response = await getFlashCardTitles(name);
+            if(response !== null){
+                setTitles(response);
+            }
+            
         }
         
-        apiCall(name!);
+        apiCall();
 
     }, []); 
 
     return (
-        <div>LibraryPage</div>
+        <div>
+            <div>LibraryPage</div>
+
+            {titles.map((title, i) => {
+                return (
+                    <div key={i}>{title}</div>
+                )
+            })}
+        </div>
     );
 }
 
