@@ -1,6 +1,5 @@
 import { useReducer } from 'react';
-
-const TITLE_LENGTH_MAX = 15;
+import { TITLE_LENGTH_MAX } from '../Constants/newCardConst';
 
 const titleReducer = (currTitle: string, title: string) => {
     if(TITLE_LENGTH_MAX < title.length){

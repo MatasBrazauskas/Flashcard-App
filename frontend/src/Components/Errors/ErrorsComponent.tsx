@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
-import type { RootState } from "../Store/store";
+import type { RootState } from "../../Store/store";
+
+import './errorStyle.css';
 
 function ErrorsComponent() {
     
@@ -8,7 +10,7 @@ function ErrorsComponent() {
     return (
         <div>
             {errors.map((error, i) => {
-                return <div key={i}>{error}</div>
+                return <div className='item' key={i}>{error}</div>
             })}
         </div>
     )

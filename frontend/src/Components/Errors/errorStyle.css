@@ -1,0 +1,13 @@
+.item{
+    display: flex;
+    justify-content: center;
+
+    font-size: 20px;
+    color: rgb(255, 73, 73);
+
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 800;
+
+    background-color: rgb(0, 83, 190);
+    padding: 10px;
+}

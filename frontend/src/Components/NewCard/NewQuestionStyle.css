@@ -1,12 +1,75 @@
-.question{
+.question {
     width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    transition: box-shadow 0.2s ease-in-out;
 }
 
-.top{
+.top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.bottom{
+.top > div {
+    font-size: 1rem;
+    font-weight: 500;
+    font-size: 20px;
+    color: #666;
+}
+
+.btn-danger {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.bottom {
     display: flex;
+    gap: 1.5rem;
+}
+
+.bottom > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: relative;
+}
+
+.bottom input {
+    width: 100%;
+    padding: 0.75rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bottom input:focus {
+    outline: none;
+    border-color: #5841a1; /* Quizlet's primary purple */
+    box-shadow: 0 0 0 2px rgba(88, 65, 161, 0.2);
+}
+
+.bottom > div > div {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    position: absolute;
+    top: -0.5rem;
+    left: 0.5rem;
+    background-color: white;
+    padding: 0 0.25rem;
 }

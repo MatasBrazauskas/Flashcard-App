@@ -10,12 +10,15 @@ import { Provider } from 'react-redux';
 
 import { OAUTH_PAGE_URL, MAIN_PAGE_URL, HOME_PAGE_URL, LIBRARY_PAGE_URL, NEW_CARD_PAGE_URL } from './Constants/constants';
 
-const LandingPage = lazy(() => import('./Pages/OAuthPage'));
-const MainPage = lazy(() => import('./Pages/MainPage'));
+const LandingPage = lazy(() => import('./Pages/OAuth/OAuthPage'));
+const MainPage = lazy(() => import('./Pages/Main/MainPage'));
 
-const HomeComponent = lazy(() => import('./Pages/HomePage'));
-const LibraryComponent = lazy(() => import('./Pages/LibraryComponent')); 
-const NewCardComponent = lazy(() => import('./Pages/NewCardPage'));
+const HomeComponent = lazy(() => import('./Pages/Home/HomePage'));
+const LibraryComponent = lazy(() => import('./Pages/Library/LibraryPage')); 
+const NewCardComponent = lazy(() => import('./Pages/NewCard/NewCardPage'));
+
+import './main.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     return (

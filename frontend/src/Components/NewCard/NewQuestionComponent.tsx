@@ -19,7 +19,7 @@ function NewQuestionComponent({id, term, definition} : FlashCardInfo) {
         <div className='question'>
             <div className='top'>
                 <div>{id}</div>
-                <button onClick={() => dispatch(deleteCard(id))}>Delete Card</button>
+                <button className = 'btn btn-danger'onClick={() => dispatch(deleteCard(id))}>Delete Card</button>
             </div>
             <form className='bottom'>
                 <div>

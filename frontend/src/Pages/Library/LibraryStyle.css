@@ -1,0 +1,15 @@
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 100%;
+}
+
+.body > div {
+    font-size: 30px;
+    font-weight: bold;
+
+    font-family: 'Courier New', Courier, monospace;
+}

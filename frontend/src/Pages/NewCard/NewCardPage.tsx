@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../Store/store";
+import type { RootState } from "../../Store/store";
 
-import NewQuestionComponent from "../Components/NewCard/NewQuestionComponent";
-import { addCard } from "../Store/flashCardState";
-import addNewFlashCardSet from "../APIs/addNewFlashCardSet";
+import NewQuestionComponent from "../../Components/NewCard/NewQuestionComponent";
+import { addCard } from "../../Store/flashCardState";
+import addNewFlashCardSet from "../../APIs/addNewFlashCardSet";
 
 import './NewCardStyle.css';
-import useTitle from "../Hooks/useTitle";
+import useTitle from "../../Hooks/useTitle";
 
 function NewCardPage() {
     const flashCards = useSelector((state: RootState) => state.FLASH_CARD_STATE_NAME.flashCards);
@@ -31,8 +31,8 @@ function NewCardPage() {
                 )
             })}
 
-            <button onClick={() => dispatch(addCard())}>Add a Card</button>
-            <button onClick={() => temp()}>Create</button>
+            <button className='btn btn-primary' onClick={() => dispatch(addCard())}>Add a Card</button>
+            <button className='btn btn-info' onClick={() => temp()}>Create</button>
         </div>
     )
 

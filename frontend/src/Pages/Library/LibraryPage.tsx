@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
-import getFlashCardTitles from '../APIs/getFlashCardTitles';
+import getFlashCardTitles from '../../APIs/getFlashCardTitles';
+import TitleCard from '../../Components/Library/TitleCard';
+
+import './LibraryStyle.css';
 
 function LibraryPage() {
 
@@ -21,12 +24,14 @@ function LibraryPage() {
     }, []); 
 
     return (
-        <div>
+        <div className='body'>
             <div>Your Library</div>
 
             {titles.map((title, i) => {
                 return (
-                    <div key={i}>{title}</div>
+                    <div key={i}>
+                        <TitleCard title={title}/>
+                    </div>
                 )
             })}
         </div>
