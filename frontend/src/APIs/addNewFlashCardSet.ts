@@ -11,7 +11,7 @@ async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]
         questions: flashCardArray.map((fl) => ({ term: fl.term, definition: fl.definition }))
     };
 
-    const jetToken = sessionStorage.getItem(JWT);
+    const jwtToken = sessionStorage.getItem(JWT);
 
     try {
         console.log(requestBody);
@@ -19,7 +19,7 @@ async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jetToken}`, 
+                'Authorization': `Bearer ${jwtToken}`, 
             },
             body: JSON.stringify(requestBody),
         });

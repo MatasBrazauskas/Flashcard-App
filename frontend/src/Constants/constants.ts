@@ -1,6 +1,5 @@
 export const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 export const FLASH_CARD_ROUTE = import.meta.env.VITE_FLASH_CARD_ROUTE;
-export const LIBRARY_ROUTE = import.meta.env.VITE_LIBRARY_ROUTE;
 export const AUTH_ROUTE = import.meta.env.VITE_AUTH_ROUTE;
 
 export const NAME = 'name';

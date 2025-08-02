@@ -4,10 +4,13 @@ import { HOME_PAGE_URL, LIBRARY_PAGE_URL, NEW_CARD_PAGE_URL } from "../../Consta
 import { NAME, PICTURE, PICTURES_HEIGHT} from "../../Constants/constants";
 
 import './TopBarStyle.css';
+import { useDispatch } from "react-redux";
+import { clearAllErrors } from "../../Store/errorState";
 
 function TopBarComponent() {
 
     const navigation = useNavigate();
+    const dispatch = useDispatch();
     const location = useLocation();
 
     const name = localStorage.getItem(NAME);
@@ -16,6 +19,7 @@ function TopBarComponent() {
     const switchPages = (url: string) => {
 
         if(!location.pathname.includes(url)){
+            dispatch(clearAllErrors());
             navigation(url);
         }
     }

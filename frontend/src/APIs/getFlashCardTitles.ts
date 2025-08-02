@@ -1,13 +1,13 @@
-import { LIBRARY_ROUTE, JWT } from "../Constants/constants";
+import { FLASH_CARD_ROUTE, JWT } from "../Constants/constants";
 
 async function getFlashCardTitles() : Promise<string[] | null> {
-    const jetToken = sessionStorage.getItem(JWT);
+    const jwtToken = sessionStorage.getItem(JWT);
 
     try{
-        const response = await fetch(LIBRARY_ROUTE, {
+        const response = await fetch(FLASH_CARD_ROUTE, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${jetToken}`,
+                'Authorization': `Bearer ${jwtToken}`,
             }
         });
 

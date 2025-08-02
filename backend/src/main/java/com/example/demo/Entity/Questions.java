@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Data
 @Entity
-@Table(name = "Questions")
+@Table(name = Constants.QUESTIONS_TABLE)
 public class Questions
 {
     @Id

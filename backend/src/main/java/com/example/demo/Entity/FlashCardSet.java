@@ -1,15 +1,10 @@
 package com.example.demo.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +12,7 @@ import com.example.demo.Utils.Constants;
 
 @Data
 @Entity
-@Table(name = "flash_card_set")
+@Table(name = Constants.FLASH_CARD_SET_TABLE)
 @RequiredArgsConstructor
 public class FlashCardSet
 {
