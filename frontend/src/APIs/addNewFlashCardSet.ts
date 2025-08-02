@@ -11,8 +11,6 @@ async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]
         questions: flashCardArray.map((fl) => ({ term: fl.term, definition: fl.definition }))
     };
 
-    console.log(requestBody);
-
     const jetToken = sessionStorage.getItem(JWT);
 
     try {

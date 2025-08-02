@@ -8,6 +8,7 @@ function LibraryPage() {
     useEffect(() => {
         const apiCall = async () => {
             const response = await getFlashCardTitles();
+            console.log(response);
 
             if(response !== null){
                 setTitles(response);
@@ -21,7 +22,7 @@ function LibraryPage() {
 
     return (
         <div>
-            <div>LibraryPage</div>
+            <div>Your Library</div>
 
             {titles.map((title, i) => {
                 return (
