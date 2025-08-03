@@ -5,15 +5,15 @@ import com.example.demo.Entity.FlashCardSet;
 import com.example.demo.Service.FlashCardService;
 import com.example.demo.Utils.Routes;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = Routes.FlashCardRouter.FLASH_CARD_ROUTE)
@@ -22,51 +22,38 @@ public class FlashCardController
     private final FlashCardService service;
     private final ModelMapper mapper;
 
-    public FlashCardController(FlashCardService serv, ModelMapper mapper)
+    public FlashCardController(FlashCardService service, ModelMapper mapper)
     {
-        this.service = serv;
+        this.service = service;
         this.mapper = mapper;
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
+    {
+        var flashCardSet = new FlashCardSet(flashCardsetDTO.getTitle(), flashCardsetDTO.getName());
+        service.addFlashCardSet(flashCardSet);
+
+        service.addQuestions(flashCardsetDTO.getQuestions(), flashCardSet);
+
+        final URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(flashCardSet.getId()).toUri();
+        return ResponseEntity.created(location).body(null);
     }
 
     @GetMapping()
     public ResponseEntity<List<String>> getTitles()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = (String) authentication.getPrincipal();
+        final String name = authentication.getPrincipal().toString();
 
-        System.out.println(name);
-
-        List<FlashCardSet> flashCard = service.getFlashCard(name);
-        if(flashCard.isEmpty()){
-            return ResponseEntity.internalServerError().build();
-        }
-        return ResponseEntity.ok().body(flashCard.stream().map(fs -> fs.getTitle()).toList());
-        //return ResponseEntity.ok().body(modelMapper.map(flashCard, ResponseEntity.class));
+        final var flashCard = service.getFlashCards(name);
+        return ResponseEntity.ok().body(flashCard.stream().map(fl -> fl.getTitle()).toList());
     }
 
     @DeleteMapping("/{title}")
-    public ResponseEntity<?> deleteTitle(@PathVariable("title") String title)
+    public ResponseEntity<Void> deleteTitle(@PathVariable("title") String title)
     {
-        FlashCardSet flashCard = service.deleteSet(title);
-        if(flashCard != null){
-            return  ResponseEntity.ok("Flash Card Set Deleted Successfully");
-        }
-        return ResponseEntity.badRequest().build();
-    }
-
-    @PostMapping
-    public ResponseEntity<?> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
-    {
-        var flashCard = service.addFlashCardSet(flashCardsetDTO.getTitle(), flashCardsetDTO.getName());
-        if(flashCard.isEmpty()){
-            return ResponseEntity.badRequest().build();
-        }
-
-        var questions = service.addQuestions(flashCardsetDTO.getQuestions(), flashCard.get());
-        if(questions.isEmpty()){
-            return ResponseEntity.badRequest().build();
-        }
-
-        return ResponseEntity.ok(flashCardsetDTO);
+        service.deleteSet(title);
+        return  ResponseEntity.noContent().build();
     }
 }

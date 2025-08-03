@@ -18,6 +18,7 @@ public class ModelMapperConfig
         ModelMapper modelMapper = new ModelMapper();
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setSkipNullEnabled(true);
+
         modelMapper.createTypeMap(FlashCardSet.class, TitlesArray.class)
                 .addMapping(fc -> fc.getQuestions(), TitlesArray::setTitles);
 

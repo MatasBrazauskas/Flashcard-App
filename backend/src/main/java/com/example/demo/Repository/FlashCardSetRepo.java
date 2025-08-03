@@ -15,15 +15,15 @@ import java.util.Optional;
 
 @Lazy
 @Repository
-public interface FlashCardSetRepo extends JpaRepository<FlashCardSet, Integer>
-{
+public interface FlashCardSetRepo extends JpaRepository<FlashCardSet, Integer> {
+
     @Transactional
     @Query(value = "SELECT * FROM " + Constants.FLASH_CARD_SET_TABLE + " WHERE name = :name", nativeQuery = true)
-    public List<FlashCardSet> findByName(@Param("name")String name);
+    public Optional<List<FlashCardSet>> findByName(@Param("name") String name);
 
     @Transactional
     @Query(value = "SELECT * FROM " + Constants.FLASH_CARD_SET_TABLE + " WHERE title = :title", nativeQuery = true)
-    public List<FlashCardSet> findByTitle(@Param("title")String title);
+    public Optional<FlashCardSet> findByTitle(@Param("title") String title);
 
     @Modifying
     @Transactional
