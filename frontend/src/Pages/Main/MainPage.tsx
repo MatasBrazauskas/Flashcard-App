@@ -11,16 +11,19 @@ function MainPage() {
 
     useEffect(() => {
         const name = localStorage.getItem(NAME);
-        const getSetToken = async (name : string) : Promise<boolean> => {
+
+        const getSetToken = async (name : string) => {
+            if(sessionStorage.getItem(JWT) !== null){
+                return;
+            }
+
             const token = await getJWTtoken(name);
             console.log(token);
 
             if(token !== null)
             {
                 sessionStorage.setItem(JWT, token.token);
-                return true;
             }
-            return false;
         }
 
         getSetToken(name!);

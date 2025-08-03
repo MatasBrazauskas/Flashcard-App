@@ -13,3 +13,10 @@ export const MAIN_PAGE_URL = '/mainPage'
 export const HOME_PAGE_URL = 'home'
 export const LIBRARY_PAGE_URL = 'library'
 export const NEW_CARD_PAGE_URL = 'addNewCard'
+
+export const HTTP_STATUS = {
+    OK: 200 as const,
+    CREATED: 201 as const,
+    NOT_FOUND: 404 as const,
+    INTERNAL_SERVER_ERROR: 500 as const,
+};

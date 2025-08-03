@@ -1,5 +1,8 @@
-import { FLASH_CARD_ROUTE, JWT } from '../Constants/constants';
+import { FLASH_CARD_ROUTE, JWT, HTTP_STATUS } from '../Constants/constants';
 import type { FlashCardInfo } from '../Utils/flashCardStatUtils';
+import { truncateInput } from '../Utils/apiUtils';
+
+import { TITLE_LENGTH_MAX, TERM_LENGTH_MAX, DEFINITION_LENGTH_MAX } from '../Constants/newCardConst';
 
 import { NAME } from '../Constants/constants';
 
@@ -7,8 +10,8 @@ async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]
 
     const requestBody = {
         name: localStorage.getItem(NAME!),
-        title: title,
-        questions: flashCardArray.map((fl) => ({ term: fl.term, definition: fl.definition }))
+        title: truncateInput(title, TITLE_LENGTH_MAX),
+        questions: flashCardArray.map((fl) => ({ term: truncateInput(fl.term, TERM_LENGTH_MAX), definition: truncateInput(fl.definition, DEFINITION_LENGTH_MAX) }))
     };
 
     const jwtToken = sessionStorage.getItem(JWT);
@@ -24,7 +27,9 @@ async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]
             body: JSON.stringify(requestBody),
         });
 
-        if (response.ok) {
+        console.log(response);
+
+        if (response.status === HTTP_STATUS.CREATED) {
             return 'Flash Card Set Added Successfully';
         }
     } catch (error) {
