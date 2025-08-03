@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # The database service
+  db:
+    image: mysql:8.4
+    container_name: mysql-db
+    environment:
+      # Configure your database credentials here
+      MYSQL_ROOT_PASSWORD: matas123456
+      MYSQL_DATABASE: Habit_App
+    ports:
+      # Map the MySQL port to the host machine
+      - "3306:3306"
+
+  # Your backend application service
+  backend:
+    build: 
+      context: ./backend
+    container_name: flashcards-backend
+    ports:
+      # Map the application port to the host machine
+      - "8080:8080"
+    depends_on:
+      # Ensure the database service starts before the backend service
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/Habit_App
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: matas123456
+  
+  frontend:
+    build:
+      context: ./frontend
+    container_name: flashcards-frontend
+    ports:
+      - "3000:5173"
+    depends_on:
+      - backend
+    env_file:
+      - ./frontend/.env
