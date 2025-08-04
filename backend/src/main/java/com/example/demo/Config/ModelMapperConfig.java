@@ -1,5 +1,7 @@
 package com.example.demo.Config;
 
+import com.example.demo.DTOs.Auth.AuthResponse;
+import com.example.demo.DTOs.FlashCardSetDTO;
 import com.example.demo.DTOs.TitlesArray;
 import com.example.demo.Entity.FlashCardSet;
 import org.modelmapper.ModelMapper;
@@ -19,8 +21,12 @@ public class ModelMapperConfig
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setSkipNullEnabled(true);
 
-        modelMapper.createTypeMap(FlashCardSet.class, TitlesArray.class)
-                .addMapping(fc -> fc.getQuestions(), TitlesArray::setTitles);
+        modelMapper.createTypeMap(FlashCardSetDTO.class, FlashCardSet.class)
+                .addMapping(fl->fl.getTitle(), FlashCardSet::setTitle)
+                .addMapping(fl -> fl.getName(), FlashCardSet::setName);
+
+        modelMapper.createTypeMap(String.class, AuthResponse.class)
+                .addMapping(str->str, AuthResponse::setToken);
 
         return modelMapper;
     }

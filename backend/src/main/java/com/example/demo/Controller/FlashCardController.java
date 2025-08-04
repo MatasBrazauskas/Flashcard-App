@@ -29,15 +29,15 @@ public class FlashCardController
     }
 
     @PostMapping
-    public ResponseEntity<Void> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
+    public ResponseEntity<FlashCardSetDTO> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
     {
-        var flashCardSet = new FlashCardSet(flashCardsetDTO.getTitle(), flashCardsetDTO.getName());
+        var flashCardSet = mapper.map(flashCardsetDTO, FlashCardSet.class);
         service.addFlashCardSet(flashCardSet);
 
         service.addQuestions(flashCardsetDTO.getQuestions(), flashCardSet);
 
         final URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(flashCardSet.getId()).toUri();
-        return ResponseEntity.created(location).body(null);
+        return ResponseEntity.created(location).body(flashCardsetDTO);
     }
 
     @GetMapping()
@@ -46,8 +46,8 @@ public class FlashCardController
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getPrincipal().toString();
 
-        final var flashCard = service.getFlashCards(name);
-        return ResponseEntity.ok().body(flashCard.stream().map(fl -> fl.getTitle()).toList());
+        final var flashCards = service.getFlashCards(name);
+        return ResponseEntity.ok().body(flashCards.stream().map(fl -> fl.getTitle()).toList());
     }
 
     @DeleteMapping("/{title}")

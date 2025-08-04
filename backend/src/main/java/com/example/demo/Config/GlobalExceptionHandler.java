@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.example.demo.Utils.Exceptions;
 
-import java.awt.*;
-
 @ControllerAdvice
 public class GlobalExceptionHandler
 {
