@@ -28,7 +28,7 @@ public class FlashCardSet
     @Column(name = "name", length = 0, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "flashCardSet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "flashCardSet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Questions> questions = new ArrayList<>();
 

@@ -50,6 +50,13 @@ public class FlashCardController
         return ResponseEntity.ok().body(flashCards.stream().map(fl -> fl.getTitle()).toList());
     }
 
+    @GetMapping("/{title}")
+    public ResponseEntity<FlashCardSet> getFlashCardSet(@PathVariable("title") String title)
+    {
+        final var flashCardSet = service.getFlashCardSet(title);
+        return ResponseEntity.ok().body(flashCardSet);
+    }
+
     @DeleteMapping("/{title}")
     public ResponseEntity<Void> deleteTitle(@PathVariable("title") String title)
     {

@@ -5,3 +5,9 @@ export const truncateInput = (input: string, length: number) => {
 export const addPathSegment = (url: string, query: string) => {
     return url + `/${query}`;
 }
+
+export type Questions = {
+    term: string,
+    definition: string,
+}
+

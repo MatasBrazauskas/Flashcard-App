@@ -45,4 +45,9 @@ public class FlashCardService
         qRepo.deleteById(flashCardSet.getId());
         fRepo.deleteByTitle(title);
     }
+
+    public FlashCardSet getFlashCardSet(String title)
+    {
+        return fRepo.findByTitle(title).orElseThrow(() -> new Exceptions.NotFoundException("FlashCardSet not found with title: " + title));
+    }
 }
