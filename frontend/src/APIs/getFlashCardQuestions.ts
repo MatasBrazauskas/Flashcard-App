@@ -1,7 +1,7 @@
 import { FLASH_CARD_ROUTE, JWT, HTTP_STATUS } from "../Constants/constants";
-import { addPathSegment, type Questions } from "../Utils/apiUtils";
+import { addPathSegment, type Questions, ERROR } from "../Utils/apiUtils";
 
-async function getFlashCardQuestions(title: string): Promise<Questions[] | null>{
+async function getFlashCardQuestions(title: string): Promise<Questions[] | string>{
     const jwtToken = localStorage.getItem(JWT);
 
     try{
@@ -20,9 +20,9 @@ async function getFlashCardQuestions(title: string): Promise<Questions[] | null>
         }
 
     } catch(e){
-        console.log(e);
+        console.error(e);
     }
-    return null;
+    return ERROR;
 }
 
 export default getFlashCardQuestions;

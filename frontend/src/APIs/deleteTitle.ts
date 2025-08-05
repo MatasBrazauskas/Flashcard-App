@@ -1,7 +1,7 @@
 import { FLASH_CARD_ROUTE, JWT, HTTP_STATUS } from "../Constants/constants";
-import { addPathSegment } from "../Utils/apiUtils";
+import { addPathSegment, ERROR } from "../Utils/apiUtils";
 
-async function deleteTitle(title: string) : Promise<string | null> {
+async function deleteTitle(title: string) : Promise<string> {
     const jwtToken = sessionStorage.getItem(JWT);
 
     try{
@@ -21,7 +21,7 @@ async function deleteTitle(title: string) : Promise<string | null> {
         console.error(e);
     }
 
-    return null
+    return ERROR;
 }
 
 export default deleteTitle;

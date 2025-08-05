@@ -11,3 +11,5 @@ export type Questions = {
     definition: string,
 }
 
+export const ERROR = 'Error with a function.';
+
