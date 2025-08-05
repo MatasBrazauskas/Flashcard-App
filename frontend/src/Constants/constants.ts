@@ -7,7 +7,7 @@ export const JWT = 'jwt';
 export const PICTURE = 'pic';
 export const PICTURES_HEIGHT = 40;
 
-export const OAUTH_PAGE_URL = ''
+export const OAUTH_PAGE_URL = '/'
 export const MAIN_PAGE_URL = '/mainPage'
 
 export const HOME_PAGE_URL = 'home'
@@ -18,8 +18,8 @@ export const EDIT_PAGE_URL = 'edit';
 export const STUDY_PAGE_URL = 'study'
 
 export const HTTP_STATUS = {
-    OK: 200 as const,
-    CREATED: 201 as const,
-    NOT_FOUND: 404 as const,
-    INTERNAL_SERVER_ERROR: 500 as const,
+    OK: 200,
+    CREATED: 201,
+    NOT_FOUND: 404,
+    INTERNAL_SERVER_ERROR: 500,
 };

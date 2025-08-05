@@ -1,37 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 import getFlashCardQuestions from '../../APIs/getFlashCardQuestions';
 import { type Questions } from '../../Utils/apiUtils';
 
-function StudyPage(title: string) {
+function StudyPage() {
 
-    const [questions, setQuestions] = useState<Questions[]>([]);
+    const { title } = useParams();
 
-    useEffect(() => {
-        const APICall = async () => {
-
-            const response = await getFlashCardQuestions(title);
-
-            if(response !== null){
-                setQuestions(response);
-            }
-        }
-
-        APICall();
-    }, []);
+    const { data, isError, error } = useQuery({
+        queryKey: ['questions'],
+        queryFn: () => getFlashCardQuestions(title!),
+    });
 
     return (
         <div>
+            {isError && <div>
+                {error!.message}    
+            </div>}
+
             <div>{title}</div>
 
-            {questions.map((question, i) => {
+            {data?.map((questions, i) => {
                 return (
                     <div key={i}>
-                        <div>{question.term}</div>
-                        <div>{question.definition}</div>
+                        <div>{questions.term}</div>
+                        <div>{questions.definition}</div>
                     </div>
-                )
-            })}
+            );})}
         </div>
     )
 }

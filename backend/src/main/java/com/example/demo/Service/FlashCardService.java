@@ -2,21 +2,25 @@ package com.example.demo.Service;
 
 import com.example.demo.DTOs.FlashCardSetDTO;
 import com.example.demo.Entity.FlashCardSet;
-import com.example.demo.Entity.Questions;
 import com.example.demo.Repository.FlashCardSetRepo;
 import com.example.demo.Repository.QuestionsRepo;
 import com.example.demo.Exceptions.Exceptions;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Lazy
 @Service
 public class FlashCardService
 {
+    @Lazy
     private final FlashCardSetRepo fRepo;
+    @Lazy
     private final QuestionsRepo qRepo;
+    @Lazy
     private final ModelMapper mapper;
 
     public FlashCardService(FlashCardSetRepo fRepo, QuestionsRepo qRepo, ModelMapper mapper)
@@ -39,11 +43,14 @@ public class FlashCardService
     @Transactional
     public FlashCardSet addSet(FlashCardSetDTO flashCardSetDTO)
     {
-        final var flashCardSet = mapper.map(flashCardSetDTO, FlashCardSet.class);
-        fRepo.save(flashCardSet);
+        var flashCardSet = new FlashCardSet();
+        flashCardSet.setTitle(flashCardSetDTO.getTitle());
+        flashCardSet.setName(flashCardSetDTO.getName());
+
+        var saveFlashCardSet = fRepo.save(flashCardSet);
 
         for(var question : flashCardSet.getQuestions()){
-            question.setFlashCardSet(flashCardSet);
+            question.setFlashCardSet(saveFlashCardSet);
             qRepo.save(question);
         }
         return flashCardSet;

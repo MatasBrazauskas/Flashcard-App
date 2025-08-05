@@ -15,20 +15,13 @@ function LibraryPage() {
 
     const { data, isError, error, refetch } = useQuery({
         queryKey: ['titles'], 
-        queryFn: getFlashCardTitles, 
-        staleTime: 1000 * 60 * 5,
-        /*onError: (err: Error) => {     // Define the onError callback here
-            // This code runs when getFlashCardTitles throws an error
-            dispatch(addError(`Failed to load library: ${err.message}`));
-            console.error("React Query Error:", err);
-        },*/
+        queryFn: () => getFlashCardTitles(), 
     },);
 
     const deleteCard = async (title: string) => {
         const message = await deleteTitle(title);
         dispatch(addError(message!));
         refetch();
-        //setTitles(arr => arr.filter(i => i !== title));
     }
 
     return (

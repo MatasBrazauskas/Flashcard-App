@@ -1,11 +1,13 @@
 package com.example.demo.Exceptions;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@Lazy
 @ControllerAdvice
 public class GlobalExceptionHandler
 {

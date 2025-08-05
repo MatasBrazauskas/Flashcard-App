@@ -2,12 +2,14 @@ package com.example.demo.Controller;
 
 import com.example.demo.DTOs.FlashCardSetDTO;
 import com.example.demo.Entity.FlashCardSet;
+import com.example.demo.Entity.Questions;
 import com.example.demo.Service.FlashCardService;
 import com.example.demo.Utils.Routes;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +23,7 @@ import java.util.List;
 @RequestMapping(path = Routes.FlashCardRouter.FLASH_CARD_ROUTE)
 public class FlashCardController
 {
+    @Lazy
     private final FlashCardService service;
 
     public FlashCardController(FlashCardService service)
@@ -48,17 +51,19 @@ public class FlashCardController
     }
 
     @GetMapping("/{title}")
-    @Cacheable(value = "FlashCardSets", key = "#title")
-    public ResponseEntity<FlashCardSet> getFlashCardSet(@PathVariable("title") String title)
+    @Cacheable(value = "Questions", key = "#title")
+    public ResponseEntity<List<Questions>> getQuestions(@PathVariable("title") String title)
     {
         final var flashCardSet = service.getFlashCardSet(title);
-        return ResponseEntity.ok().body(flashCardSet);
+        final var questions =  flashCardSet.getQuestions();
+        return ResponseEntity.ok().body(questions);
     }
 
     @DeleteMapping("/{title}")
     @Caching(evict = {
             @CacheEvict(allEntries = true, value="FlashCardSets"),
-            @CacheEvict(allEntries = true, value="Titles")
+            @CacheEvict(allEntries = true, value="Titles"),
+            @CacheEvict(allEntries = true, value="Questions"),
     })
     public ResponseEntity<Void> deleteSet(@PathVariable("title") String title)
     {
