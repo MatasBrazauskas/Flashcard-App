@@ -1,11 +1,13 @@
 package com.example.demo.Config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@EnableCaching
 public class CORSConfig implements WebMvcConfigurer {
 
     @Override

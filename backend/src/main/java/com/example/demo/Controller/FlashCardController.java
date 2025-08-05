@@ -5,7 +5,9 @@ import com.example.demo.Entity.FlashCardSet;
 import com.example.demo.Service.FlashCardService;
 import com.example.demo.Utils.Routes;
 import jakarta.validation.Valid;
-import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,27 +22,22 @@ import java.util.List;
 public class FlashCardController
 {
     private final FlashCardService service;
-    private final ModelMapper mapper;
 
-    public FlashCardController(FlashCardService service, ModelMapper mapper)
+    public FlashCardController(FlashCardService service)
     {
         this.service = service;
-        this.mapper = mapper;
     }
 
     @PostMapping
-    public ResponseEntity<FlashCardSetDTO> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
+    public ResponseEntity<FlashCardSet> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
     {
-        var flashCardSet = mapper.map(flashCardsetDTO, FlashCardSet.class);
-        service.addFlashCardSet(flashCardSet);
-
-        service.addQuestions(flashCardsetDTO.getQuestions(), flashCardSet);
-
-        final URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(flashCardSet.getId()).toUri();
-        return ResponseEntity.created(location).body(flashCardsetDTO);
+        final var createdFlashCard = service.addSet(flashCardsetDTO);
+        final URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdFlashCard.getId()).toUri();
+        return ResponseEntity.created(location).body(createdFlashCard);
     }
 
     @GetMapping()
+    @Cacheable(value = "Titles")
     public ResponseEntity<List<String>> getTitles()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -51,6 +48,7 @@ public class FlashCardController
     }
 
     @GetMapping("/{title}")
+    @Cacheable(value = "FlashCardSets", key = "#title")
     public ResponseEntity<FlashCardSet> getFlashCardSet(@PathVariable("title") String title)
     {
         final var flashCardSet = service.getFlashCardSet(title);
@@ -58,7 +56,11 @@ public class FlashCardController
     }
 
     @DeleteMapping("/{title}")
-    public ResponseEntity<Void> deleteTitle(@PathVariable("title") String title)
+    @Caching(evict = {
+            @CacheEvict(allEntries = true, value="FlashCardSets"),
+            @CacheEvict(allEntries = true, value="Titles")
+    })
+    public ResponseEntity<Void> deleteSet(@PathVariable("title") String title)
     {
         service.deleteSet(title);
         return  ResponseEntity.noContent().build();
