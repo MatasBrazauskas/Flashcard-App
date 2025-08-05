@@ -13,7 +13,7 @@ export const MAIN_PAGE_URL = '/mainPage'
 export const HOME_PAGE_URL = 'home'
 export const LIBRARY_PAGE_URL = 'library'
 export const NEW_CARD_PAGE_URL = 'addNewCard'
-
+export const PROFILE_PAGE_URL = 'profile'
 export const EDIT_PAGE_URL = 'edit';
 export const STUDY_PAGE_URL = 'study'
 

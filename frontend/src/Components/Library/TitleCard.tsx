@@ -1,3 +1,5 @@
+import useSwitchPage from '../../Hooks/useSwitchPage';
+
 import './TitleStyle.css';
 
 type TitleCardProps = {
@@ -7,9 +9,11 @@ type TitleCardProps = {
 
 function TitleCard ({title, deleteCard} : TitleCardProps) {
 
+    const { switchPages } = useSwitchPage();
+        
     return (
         <div className='title'>
-            <div onClick={() => alert()}>{title}</div>
+            <div onClick={() => switchPages(title)}>{title}</div>
             <button onClick={() => deleteCard(title)}>x</button>
         </div>
     )

@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
 
 import getFlashCardTitles from '../../APIs/getFlashCardTitles';
 import TitleCard from '../../Components/Library/TitleCard';
@@ -10,35 +11,35 @@ import './LibraryStyle.css';
 
 function LibraryPage() {
 
-    const [titles, setTitles] = useState<string[]>([]);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        const apiCall = async () => {
-            const response = await getFlashCardTitles();
-            console.log(response);
-
-            if(response !== null){
-                setTitles(response);
-            }
-            
-        }
-        
-        apiCall();
-
-    }, []); 
+    const { data, isError, error, refetch } = useQuery({
+        queryKey: ['titles'], 
+        queryFn: getFlashCardTitles, 
+        staleTime: 1000 * 60 * 5,
+        /*onError: (err: Error) => {     // Define the onError callback here
+            // This code runs when getFlashCardTitles throws an error
+            dispatch(addError(`Failed to load library: ${err.message}`));
+            console.error("React Query Error:", err);
+        },*/
+    },);
 
     const deleteCard = async (title: string) => {
         const message = await deleteTitle(title);
         dispatch(addError(message!));
-        setTitles(arr => arr.filter(i => i !== title));
+        refetch();
+        //setTitles(arr => arr.filter(i => i !== title));
     }
 
     return (
         <div className='body'>
+            {isError && 
+            <div>
+                {error!.message}    
+            </div>}
             <div>Your Library</div>
 
-            {titles.map((title, i) => {
+            {data?.map((title, i) => {
                 return (
                     <div key={i}>
                         <TitleCard title={title} deleteCard={deleteCard}/>
