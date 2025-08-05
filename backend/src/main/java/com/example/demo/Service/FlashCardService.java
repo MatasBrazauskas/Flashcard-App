@@ -4,7 +4,7 @@ import com.example.demo.Entity.FlashCardSet;
 import com.example.demo.Entity.Questions;
 import com.example.demo.Repository.FlashCardSetRepo;
 import com.example.demo.Repository.QuestionsRepo;
-import com.example.demo.Utils.Exceptions;
+import com.example.demo.Exceptions.Exceptions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

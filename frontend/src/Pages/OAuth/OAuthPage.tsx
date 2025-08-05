@@ -11,25 +11,11 @@ import './OAuthStyle.css';
 function LandingPage() {
     const navigation = useNavigate();
 
-    /*const getSetToken = async (name : string) : Promise<boolean> => {
-        const token = await getJWTtoken(name);
-        console.log(token);
-
-        if(token !== null)
-        {
-            sessionStorage.setItem(JWT, token.token);
-            return true;
-        }
-        return false;
-    }*/
-
     useEffect(() => {
         const name = localStorage.getItem(NAME);
 
         const temp = async () => {
             if(name !== null){
-                //const confirm = await getSetToken(name)
-                //if(confirm)
                 navigation(MAIN_PAGE_URL);
             }
         }

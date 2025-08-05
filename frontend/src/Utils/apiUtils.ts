@@ -11,5 +11,9 @@ export type Questions = {
     definition: string,
 }
 
+export type AuthResponse = {
+    token: string,
+}
+
 export const ERROR = 'Error with a function.';
 

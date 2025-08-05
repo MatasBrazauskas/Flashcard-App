@@ -1,4 +1,4 @@
-package com.example.demo.Utils;
+package com.example.demo.Exceptions;
 
 public final class Exceptions
 {

@@ -1,13 +1,14 @@
-package com.example.demo.DTOs.Auth;
+package com.example.demo.DTOs;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 
 @Data
-@ToString
 @AllArgsConstructor
 public class AuthRequest
 {
+    @NotEmpty
     private String name;
 }

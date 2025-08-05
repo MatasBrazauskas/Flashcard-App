@@ -14,6 +14,9 @@ export const HOME_PAGE_URL = 'home'
 export const LIBRARY_PAGE_URL = 'library'
 export const NEW_CARD_PAGE_URL = 'addNewCard'
 
+export const EDIT_PAGE_URL = 'edit';
+export const STUDY_PAGE_URL = 'study'
+
 export const HTTP_STATUS = {
     OK: 200 as const,
     CREATED: 201 as const,

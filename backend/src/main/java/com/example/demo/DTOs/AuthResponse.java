@@ -1,7 +1,8 @@
-package com.example.demo.DTOs.Auth;
+package com.example.demo.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor

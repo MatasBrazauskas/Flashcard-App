@@ -1,7 +1,6 @@
 import { FLASH_CARD_ROUTE, JWT, HTTP_STATUS } from "../Constants/constants";
-import { ERROR } from "../Utils/apiUtils";
 
-async function getFlashCardTitles() : Promise<string[] | string> {
+async function getFlashCardTitles() : Promise<string[] | null> {
     const jwtToken = sessionStorage.getItem(JWT);
 
     try{
@@ -21,7 +20,7 @@ async function getFlashCardTitles() : Promise<string[] | string> {
     } catch(e){
         console.error(e);
     }
-    return ERROR;
+    return null;
 }
 
 export default getFlashCardTitles;
