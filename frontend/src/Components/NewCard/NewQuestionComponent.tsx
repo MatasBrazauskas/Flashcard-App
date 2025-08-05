@@ -5,7 +5,9 @@ import { TERM, DEFINITION, } from '../../Utils/flashCardStatUtils';
 import { type FlashCardInfo } from '../../Utils/flashCardStatUtils';
 
 import { deleteCard } from '../../Store/flashCardState';
+
 import { useDispatch } from 'react-redux';
+import { queryClient } from '../../main';
 
 import './NewQuestionStyle.css';
 

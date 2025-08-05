@@ -48,11 +48,14 @@ public class FlashCardService
         flashCardSet.setName(flashCardSetDTO.getName());
 
         var saveFlashCardSet = fRepo.save(flashCardSet);
+        var questions =  flashCardSetDTO.getQuestions();
 
-        for(var question : flashCardSet.getQuestions()){
+        for(var question : questions){
             question.setFlashCardSet(saveFlashCardSet);
             qRepo.save(question);
+            System.out.println(question.getTerm());
         }
+
         return flashCardSet;
     }
 

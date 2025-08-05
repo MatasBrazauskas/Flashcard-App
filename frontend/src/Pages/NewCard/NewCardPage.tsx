@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
+import { queryClient } from "../../main";
+
 import type { RootState } from "../../Store/store";
 
 import NewQuestionComponent from "../../Components/NewCard/NewQuestionComponent";
@@ -13,9 +15,9 @@ function NewCardPage() {
     const {title, dispatchTitle} = useTitle();
     const dispatch = useDispatch();
 
-    const temp = async () => {
-        const message = await addNewFlashCardSet(title, flashCards);
-        console.log(message);
+    const APIcall = async () => {
+        await addNewFlashCardSet(title, flashCards);
+        queryClient.invalidateQueries({ queryKey: ['titles']})
     }
 
     return (
@@ -32,7 +34,7 @@ function NewCardPage() {
             })}
 
             <button className='btn btn-primary' onClick={() => dispatch(addCard())}>Add a Card</button>
-            <button className='btn btn-info' onClick={() => temp()}>Create</button>
+            <button className='btn btn-info' onClick={() => APIcall()}>Create</button>
         </div>
     )
 

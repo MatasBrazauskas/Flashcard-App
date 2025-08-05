@@ -21,7 +21,7 @@ public class FlashCardSet
     private long id;
 
     @NotBlank
-    @Column(name = "Title", length = Constants.TITLE_LENGTH, nullable = false)
+    @Column(name = "Title", length = Constants.TITLE_LENGTH, nullable = false, unique = true)
     private String title;
 
     @NotBlank

@@ -7,6 +7,7 @@ import com.example.demo.Service.FlashCardService;
 import com.example.demo.Utils.Routes;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.context.annotation.Lazy;
@@ -34,16 +35,17 @@ public class FlashCardController
     @PostMapping
     public ResponseEntity<FlashCardSet> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
     {
+        System.out.println("createFlashCardSet");
         final var createdFlashCard = service.addSet(flashCardsetDTO);
         final URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdFlashCard.getId()).toUri();
         return ResponseEntity.created(location).body(createdFlashCard);
     }
 
     @GetMapping()
-    @Cacheable(value = "Titles")
+    //@Cacheable(value = "Titles")
     public ResponseEntity<List<String>> getTitles()
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final var authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getPrincipal().toString();
 
         final var flashCards = service.getFlashCards(name);
@@ -51,20 +53,20 @@ public class FlashCardController
     }
 
     @GetMapping("/{title}")
-    @Cacheable(value = "Questions", key = "#title")
+    //@Cacheable(value = "Questions", key = "#title")
     public ResponseEntity<List<Questions>> getQuestions(@PathVariable("title") String title)
     {
         final var flashCardSet = service.getFlashCardSet(title);
         final var questions =  flashCardSet.getQuestions();
+
         return ResponseEntity.ok().body(questions);
     }
 
     @DeleteMapping("/{title}")
-    @Caching(evict = {
-            @CacheEvict(allEntries = true, value="FlashCardSets"),
-            @CacheEvict(allEntries = true, value="Titles"),
-            @CacheEvict(allEntries = true, value="Questions"),
-    })
+    /*@Caching(evict = {
+            @CacheEvict(value="Titles"),
+            @CacheEvict(value="Questions", key="#title"),
+    })*/
     public ResponseEntity<Void> deleteSet(@PathVariable("title") String title)
     {
         service.deleteSet(title);

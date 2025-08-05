@@ -25,7 +25,7 @@ const NewCardComponent = lazy(() => import('./Pages/NewCard/NewCardPage'));
 const ProfilePage = lazy(() => import('./Pages/Profile/ProfilePage'))
 const StudyPage = lazy(() => import('./Pages/Study/StudyPage'));
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions : {
     queries: {
       staleTime: 1000 * 60 * 5,
