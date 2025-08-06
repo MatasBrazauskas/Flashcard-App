@@ -8,6 +8,7 @@ import deleteTitle from '../../APIs/deleteTitle';
 import { addError } from '../../Store/errorState';
 
 import './LibraryStyle.css';
+import { queryClient } from '../../main';
 
 function LibraryPage() {
 
@@ -21,7 +22,8 @@ function LibraryPage() {
     const deleteCard = async (title: string) => {
         const message = await deleteTitle(title);
         dispatch(addError(message!));
-        refetch();
+        queryClient.setQueryData(['titles'], (old: string[]) => [...(old || []), title]);
+        //refetch();
     }
 
     return (

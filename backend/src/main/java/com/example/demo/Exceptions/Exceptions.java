@@ -7,4 +7,10 @@ public final class Exceptions
             super(message);
         }
     }
+
+    public static final class RateLimitExceededException extends RuntimeException {
+        public RateLimitExceededException(String message) {
+            super(message);
+        }
+    }
 }

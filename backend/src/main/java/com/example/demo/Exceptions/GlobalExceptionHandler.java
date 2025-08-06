@@ -22,4 +22,10 @@ public class GlobalExceptionHandler
     {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(Exceptions.RateLimitExceededException.class)
+    public ResponseEntity<String> handleRateLimitExceeded(Exceptions.RateLimitExceededException e)
+    {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
