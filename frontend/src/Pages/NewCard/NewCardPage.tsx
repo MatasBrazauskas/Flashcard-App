@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../main";
 
 import type { RootState } from "../../Store/store";
@@ -9,20 +10,32 @@ import addNewFlashCardSet from "../../APIs/addNewFlashCardSet";
 
 import './NewCardStyle.css';
 import useTitle from "../../Hooks/useTitle";
+import type { FlashCardInfo } from "../../Utils/flashCardStatUtils";
 
 function NewCardPage() {
     const flashCards = useSelector((state: RootState) => state.FLASH_CARD_STATE_NAME.flashCards);
     const {title, dispatchTitle} = useTitle();
+
     const dispatch = useDispatch();
+    const { data, error, isError, mutate } = useMutation({
+        mutationFn: ({ title, flashCards} : {title: string, flashCards: FlashCardInfo[]}) => addNewFlashCardSet(title, flashCards),
+        onSuccess: () => {
+            //Added invalidation
+        }
+    })
 
     const APIcall = async () => {
-        await addNewFlashCardSet(title, flashCards);
+        /*await addNewFlashCardSet(title, flashCards);*/
+        mutate({title, flashCards});
         queryClient.invalidateQueries({ queryKey: ['titles']})
     }
 
     return (
         <div className='newcardpage'>
             <div>Create a new flashcard set</div>
+
+            {isError && <div>{error!.message}</div>}
+
             <input type='text' placeholder="Enter a title" onChange={(e) => dispatchTitle(e.target.value)} value={title}/>
 
             {flashCards.map((flashCard, i) => {
