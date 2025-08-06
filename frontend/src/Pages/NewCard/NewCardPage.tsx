@@ -7,6 +7,7 @@ import type { RootState } from "../../Store/store";
 import NewQuestionComponent from "../../Components/NewCard/NewQuestionComponent";
 import { addCard } from "../../Store/flashCardState";
 import addNewFlashCardSet from "../../APIs/addNewFlashCardSet";
+import { addError } from "../../Store/errorState";
 
 import './NewCardStyle.css';
 import useTitle from "../../Hooks/useTitle";
@@ -17,18 +18,20 @@ function NewCardPage() {
     const {title, dispatchTitle} = useTitle();
 
     const dispatch = useDispatch();
-    const { data, error, isError, mutate } = useMutation({
+    const { error, isError, mutate } = useMutation({
         mutationFn: ({ title, flashCards} : {title: string, flashCards: FlashCardInfo[]}) => addNewFlashCardSet(title, flashCards),
         onSuccess: () => {
-            //Added invalidation
+            queryClient.setQueryData(['titles'], (old: string[]) => [...old, title])
+        },
+        onError: (e: Error) => {
+            dispatch(addError(e.message));
         }
     })
 
-    const APIcall = async () => {
-        /*await addNewFlashCardSet(title, flashCards);*/
+    /*const APIcall = async () => {
         mutate({title, flashCards});
         queryClient.invalidateQueries({ queryKey: ['titles']})
-    }
+    }*/
 
     return (
         <div className='newcardpage'>
@@ -47,10 +50,9 @@ function NewCardPage() {
             })}
 
             <button className='btn btn-primary' onClick={() => dispatch(addCard())}>Add a Card</button>
-            <button className='btn btn-info' onClick={() => APIcall()}>Create</button>
+            <button className='btn btn-info' onClick={() => mutate({title, flashCards})}>Create</button>
         </div>
     )
-
 }
 
 export default NewCardPage;

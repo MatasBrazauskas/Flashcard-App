@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import com.example.demo.Utils.Constants;
 
 import java.util.List;
 
@@ -30,14 +31,14 @@ public class FlashCardService
         this.mapper = mapper;
     }
 
-    public List<FlashCardSet> getFlashCards(String nameAndSurname)
+    public List<FlashCardSet> getFlashCards(String name)
     {
-        return fRepo.findByName(nameAndSurname).orElseThrow(() -> new Exceptions.NotFoundException("FlashCard not found with name " + nameAndSurname));
+        return fRepo.findByName(name).orElseThrow(() -> new Exceptions.NotFoundException(Constants.NotFoundErrorMessage(name)));
     }
 
     public FlashCardSet getFlashCardSet(String title)
     {
-        return fRepo.findByTitle(title).orElseThrow(() -> new Exceptions.NotFoundException("FlashCardSet not found with title: " + title));
+        return fRepo.findByTitle(title).orElseThrow(() -> new Exceptions.NotFoundException(Constants.NotFoundErrorMessage(title)));
     }
 
     @Transactional
@@ -61,7 +62,7 @@ public class FlashCardService
 
     @Transactional
     public void deleteSet(String title) {
-        var flashCardSet = fRepo.findByTitle(title).orElseThrow(() -> new Exceptions.NotFoundException("FlashCardSet not found with title: " + title));
+        var flashCardSet = fRepo.findByTitle(title).orElseThrow(() -> new Exceptions.NotFoundException(Constants.NotFoundErrorMessage(title)));
 
         qRepo.deleteById(flashCardSet.getId());
         fRepo.deleteByTitle(title);

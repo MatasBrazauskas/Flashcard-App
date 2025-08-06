@@ -1,10 +1,10 @@
 //import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
 import getFlashCardTitles from '../../APIs/getFlashCardTitles';
 import TitleCard from '../../Components/Library/TitleCard';
-import deleteTitle from '../../APIs/deleteTitle';
+import deleteFlashCardSet from '../../APIs/deleteFashCardSet';
 import { addError } from '../../Store/errorState';
 
 import './LibraryStyle.css';
@@ -14,17 +14,26 @@ function LibraryPage() {
 
     const dispatch = useDispatch();
 
-    const { data, isError, error, refetch } = useQuery({
+    const { data, isError, error } = useQuery({
         queryKey: ['titles'], 
         queryFn: () => getFlashCardTitles(), 
     },);
 
-    const deleteCard = async (title: string) => {
-        const message = await deleteTitle(title);
-        dispatch(addError(message!));
-        queryClient.setQueryData(['titles'], (old: string[]) => [...(old || []), title]);
-        //refetch();
-    }
+    const { mutate } = useMutation({
+        mutationFn: async (title: string) => {
+            return await deleteFlashCardSet(title);
+        },
+
+        onSuccess: (title) => {
+            queryClient.setQueryData(['titles'], (old: string[]) => {
+                old.filter(i => i !== title)
+            })
+        },
+
+        onError: (e : Error) => {
+            dispatch(addError(e.message));
+        }
+    })
 
     return (
         <div className='body'>
@@ -37,7 +46,7 @@ function LibraryPage() {
             {data?.map((title, i) => {
                 return (
                     <div key={i}>
-                        <TitleCard title={title} deleteCard={deleteCard}/>
+                        <TitleCard title={title} deleteCard={mutate}/>
                     </div>
                 )
             })}

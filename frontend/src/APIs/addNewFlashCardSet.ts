@@ -1,6 +1,7 @@
 import { FLASH_CARD_ROUTE, JWT, HTTP_STATUS } from '../Constants/constants';
 import type { FlashCardInfo } from '../Utils/flashCardStatUtils';
-import { truncateInput, ERROR } from '../Utils/apiUtils';
+import { truncateInput } from '../Utils/apiUtils';
+import { CARD_ADDITION_ERROR } from '../Utils/errorStateUtils';
 
 import { TITLE_LENGTH_MAX, TERM_LENGTH_MAX, DEFINITION_LENGTH_MAX } from '../Constants/newCardConst';
 
@@ -35,7 +36,7 @@ async function addNewFlashCardSet(title: string, flashCardArray: FlashCardInfo[]
     } catch (error) {
         console.error(error);
     }
-    return ERROR;
+    throw new Error(CARD_ADDITION_ERROR);
 }
 
 export default addNewFlashCardSet;

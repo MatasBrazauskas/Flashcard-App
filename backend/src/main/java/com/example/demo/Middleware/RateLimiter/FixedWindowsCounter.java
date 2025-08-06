@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+import com.example.demo.Utils.Constants;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +21,7 @@ public class FixedWindowsCounter
         public int count;
     }
 
-    private final int maxRequestsPerSecond = 1;
+    private final int maxRequestsPerSecond = Constants.MAX_REQUESTS_PER_SECOND;
     private final Map<String, RequestCounter> requestCounters = new ConcurrentHashMap<>();
 
     public boolean isAllowed(String name)

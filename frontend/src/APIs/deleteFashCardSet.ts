@@ -1,7 +1,8 @@
 import { FLASH_CARD_ROUTE, JWT, HTTP_STATUS } from "../Constants/constants";
-import { addPathSegment, ERROR } from "../Utils/apiUtils";
+import { addPathSegment } from "../Utils/apiUtils";
+import { DELETION_ERROR } from "../Utils/errorStateUtils";
 
-async function deleteTitle(title: string) : Promise<string> {
+async function deleteFlashCardSet(title: string) : Promise<string> {
     const jwtToken = sessionStorage.getItem(JWT);
 
     try{
@@ -21,7 +22,7 @@ async function deleteTitle(title: string) : Promise<string> {
         console.error(e);
     }
 
-    return ERROR;
+    throw new Error(DELETION_ERROR);
 }
 
-export default deleteTitle;
+export default deleteFlashCardSet;
