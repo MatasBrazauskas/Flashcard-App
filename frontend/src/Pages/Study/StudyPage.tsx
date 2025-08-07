@@ -1,56 +1,33 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useContext, createContext } from 'react';
 
 import getFlashCardQuestions from '../../APIs/getFlashCardQuestions';
-import QuestionsDisplay from '../../Components/QuestionsDisplay';
+import { QUESTIONS_CACHE } from '../../Constants/cacheConst';
+import EditComponent from '../../Components/Study/EditComponent';
+import QuizDisplay from '../../Components/Study/QuizDisplay';
+
+import './StudyStyle.css';
+import type { Questions } from '../../Utils/apiUtils';
+export const UserContext = createContext<Questions[]>([]);
 
 function StudyPage() {
 
     const { title, id } = useParams();
 
-    const [index, setIndex] = useReducer((index: number) => {
-        if(index + 1 >= data?.length!){
-            setStudying(false);
-            setEdit(false)
-            return 0;
-        }
-        return index;
-    }, 0);
-
-    const [studying, setStudying] = useState(false);
-    const [edit, setEdit] = useState(false);
-
     const { data, isError, error } = useQuery({
-        queryKey: ['questions', title!],
+        queryKey: [QUESTIONS_CACHE, title!],
         queryFn: () => getFlashCardQuestions(Number(id)!),
     });
 
     return (
-        <div>
-            {isError && <div>
-                {error!.message}    
-            </div>}
-
-            <div>{title}</div>
-
-            <QuestionsDisplay term={data?.at(index)?.term!} definition={data?.at(index)?.definition!}/>
-
-            <button onClick={() => setEdit(!edit)}>Edit Flash Cards</button>
-            <button onClick={() => setStudying(!studying)}>Start Study</button>
-
-            {!studying && data?.map((questions, i) => {
-                return (
-                    <div key={i}>
-                        <div>{questions.term}</div>
-                        <div>{questions.definition}</div>
-                    </div>
-            );})}
-
-            {edit && 
-            <button onClick={() => {alert('Done'), setEdit(!edit)}}>Done</button>}
-
-        </div>
+        <UserContext.Provider value={data!}>
+            <div className='container'>
+                {isError && <div>{error!.message}</div>}
+                <QuizDisplay />
+                <EditComponent />
+            </div>
+        </UserContext.Provider>
     )
 }
 

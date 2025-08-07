@@ -12,6 +12,7 @@ import './NewCardStyle.css';
 import useTitle from "../../Hooks/useTitle";
 import type { FlashCardInfo } from "../../Utils/flashCardStatUtils";
 import { queryClient } from "../../main";
+import { TITLES_CACHE } from "../../Constants/cacheConst";
 
 function NewCardPage() {
     const flashCards = useSelector((state: RootState) => state.FLASH_CARD_STATE_NAME.flashCards);
@@ -21,7 +22,7 @@ function NewCardPage() {
     const { error, isError, mutate } = useMutation({
         mutationFn: ({ title, flashCards} : {title: string, flashCards: FlashCardInfo[]}) => addNewFlashCardSet(title, flashCards),
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['titles']});
+            queryClient.invalidateQueries({queryKey: [TITLES_CACHE]});
         },
         onError: (e: Error) => {
             dispatch(addError(e.message));

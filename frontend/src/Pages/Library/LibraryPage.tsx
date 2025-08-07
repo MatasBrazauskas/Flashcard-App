@@ -8,13 +8,14 @@ import { addError } from '../../Store/errorState';
 
 import './LibraryStyle.css';
 import { queryClient } from '../../main';
+import { TITLES_CACHE } from '../../Constants/cacheConst';
 
 function LibraryPage() {
 
     const dispatch = useDispatch();
 
     const { data, isError, error } = useQuery({
-        queryKey: ['titles'], 
+        queryKey: [TITLES_CACHE], 
         queryFn: () => getFlashCardTitles(), 
     },);
 
@@ -23,7 +24,7 @@ function LibraryPage() {
             return await deleteFlashCardSet(id);
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['titles']});
+            queryClient.invalidateQueries({queryKey: [TITLES_CACHE]});
         },
         onError: (e : Error) => {
             dispatch(addError(e.message));

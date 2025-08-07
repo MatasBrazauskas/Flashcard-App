@@ -4,7 +4,6 @@ import { GETTING_QUESTIONS_ERROR } from "../Utils/errorStateUtils";
 
 async function getFlashCardQuestions(id: number): Promise<Questions[]>{
     const jwtToken = sessionStorage.getItem(JWT);
-    console.warn('This is JWT token ', jwtToken);
 
     try{
         const response = await fetch(addPathSegment(FLASH_CARD_ROUTE, String(id)), {
