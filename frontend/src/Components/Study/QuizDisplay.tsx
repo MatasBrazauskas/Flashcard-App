@@ -9,12 +9,16 @@ function QuizDisplay(){
 
     const [flipped, setFliped] = useState(false);
     const [studying, setStudying] = useState(false);
-    const [correct, incramentCorrectCount] = useReducer((state: number) => {
+    const [correctCount, incramentCorrectCount] = useReducer((state: number) => {
         return state + 1;
     }, 0);
 
     const [index, indexDispatch] = useReducer((state: number, action: 'INCREMENT' | 'DECREMENT') => {
         if (action === 'INCREMENT') {
+            if(state + 1 >= questions.length) {
+                setStudying(false);
+                
+            }
             return state + 1 >= questions?.length! ? 0 : state + 1;
         }
         if (action === 'DECREMENT') {
