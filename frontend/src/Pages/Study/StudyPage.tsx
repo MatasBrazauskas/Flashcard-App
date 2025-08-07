@@ -7,7 +7,7 @@ import QuestionsDisplay from '../../Components/QuestionsDisplay';
 
 function StudyPage() {
 
-    const { title } = useParams();
+    const { title, id } = useParams();
 
     const [index, setIndex] = useReducer((index: number) => {
         if(index + 1 >= data?.length!){
@@ -23,7 +23,7 @@ function StudyPage() {
 
     const { data, isError, error } = useQuery({
         queryKey: ['questions', title!],
-        queryFn: () => getFlashCardQuestions(title!),
+        queryFn: () => getFlashCardQuestions(Number(id)!),
     });
 
     return (
@@ -42,7 +42,8 @@ function StudyPage() {
             {!studying && data?.map((questions, i) => {
                 return (
                     <div key={i}>
-                        
+                        <div>{questions.term}</div>
+                        <div>{questions.definition}</div>
                     </div>
             );})}
 

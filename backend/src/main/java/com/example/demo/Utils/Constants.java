@@ -9,10 +9,13 @@ public final class Constants
     public static final String FLASH_CARD_SET_TABLE = "flash_card_set";
     public static final String QUESTIONS_TABLE = "questions";
 
-    public static final int MAX_REQUESTS_PER_SECOND = 2;
+    public static final int MAX_REQUESTS_PER_SECOND = 4;
 
-    public static String NotFoundErrorMessage(String name)
+    public static String NotFoundErrorMessage(String title)
     {
-        return "FlashCard not found with name " + name;
+        return "FlashCard not found with name " + title;
     }
+
+    public static final String QUESTIONS_CACHE = "questions_cache";
+    public static final String TITLES_CACHE = "titles_cache";
 }

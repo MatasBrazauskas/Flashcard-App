@@ -4,6 +4,7 @@ export type ERRORS = {
 
 export const ERRORS_STATE_NAME = 'errorsState';
 
+export const JWT_ERROR = 'Failed to get JWT token';
 export const DELETION_ERROR = 'Failed to delete a card';
 export const CARD_ADDITION_ERROR = 'Failed to add flash card set';
 export const GETTING_QUESTIONS_ERROR = 'Failed to get flash card set questions';

@@ -13,10 +13,6 @@ function MainPage() {
         const name = localStorage.getItem(NAME);
 
         const getSetToken = async (name : string) => {
-            if(sessionStorage.getItem(JWT) !== null){
-                return;
-            }
-
             const token = await getJWTtoken(name);
             console.log(token);
 

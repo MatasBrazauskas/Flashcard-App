@@ -1,7 +1,7 @@
 import { AUTH_ROUTE, HTTP_STATUS } from "../Constants/constants";
 import { type AuthResponse } from "../Utils/apiUtils";
 
-async function getJWTtoken(name: string) : Promise<AuthResponse | null> {
+async function getJWTtoken(name: string) : Promise<AuthResponse> {
     try{
         const response = await fetch(AUTH_ROUTE, {
             method: 'POST',
@@ -21,7 +21,7 @@ async function getJWTtoken(name: string) : Promise<AuthResponse | null> {
     } catch(e){
         console.error(e);
     }
-    return null;
+    throw new Error();
 }
 
 export default getJWTtoken;

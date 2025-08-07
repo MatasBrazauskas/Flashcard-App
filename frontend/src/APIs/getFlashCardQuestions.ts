@@ -2,12 +2,12 @@ import { FLASH_CARD_ROUTE, JWT, HTTP_STATUS } from "../Constants/constants";
 import { addPathSegment, type Questions } from "../Utils/apiUtils";
 import { GETTING_QUESTIONS_ERROR } from "../Utils/errorStateUtils";
 
-async function getFlashCardQuestions(title: string): Promise<Questions[]>{
+async function getFlashCardQuestions(id: number): Promise<Questions[]>{
     const jwtToken = sessionStorage.getItem(JWT);
     console.warn('This is JWT token ', jwtToken);
 
     try{
-        const response = await fetch(addPathSegment(FLASH_CARD_ROUTE, title), {
+        const response = await fetch(addPathSegment(FLASH_CARD_ROUTE, String(id)), {
             method: 'GET',
             headers : {
                 'Authorization': `Bearer ${jwtToken}`,

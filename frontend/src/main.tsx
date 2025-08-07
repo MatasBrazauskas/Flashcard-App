@@ -43,7 +43,7 @@ function App() {
           <Route path={NEW_CARD_PAGE_URL} element={<NewCardComponent />} />
           <Route path={PROFILE_PAGE_URL} element={<ProfilePage/>} />
           <Route path={LIBRARY_PAGE_URL} element={<LibraryComponent />}/>
-          <Route path={`${STUDY_PAGE_URL}/:title`} element={<StudyPage />}/>
+          <Route path={`${STUDY_PAGE_URL}/:title/:id`} element={<StudyPage />}/>
           <Route index element={<Navigate to={HOME_PAGE_URL} />} />
         </Route>
       </Routes>

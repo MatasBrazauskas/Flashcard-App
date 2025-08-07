@@ -14,3 +14,8 @@ export type Questions = {
 export type AuthResponse = {
     token: string,
 }
+
+export type TitlesDTO = {
+    id: number,
+    title: string,
+}

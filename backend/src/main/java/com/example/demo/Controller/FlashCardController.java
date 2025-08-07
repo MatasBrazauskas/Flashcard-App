@@ -1,18 +1,14 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTOs.FlashCardSetDTO;
+import com.example.demo.DTOs.TitlesDTO;
 import com.example.demo.Entity.FlashCardSet;
 import com.example.demo.Entity.Questions;
 import com.example.demo.Service.FlashCardService;
 import com.example.demo.Utils.Routes;
 import jakarta.validation.Valid;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,43 +29,37 @@ public class FlashCardController
     }
 
     @PostMapping
-    public ResponseEntity<FlashCardSet> createFlashCardSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
+    public ResponseEntity<FlashCardSet> createSet(@RequestBody @Valid FlashCardSetDTO flashCardsetDTO)
     {
-        System.out.println("createFlashCardSet");
         final var createdFlashCard = service.addSet(flashCardsetDTO);
         final URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdFlashCard.getId()).toUri();
         return ResponseEntity.created(location).body(createdFlashCard);
     }
 
     @GetMapping()
-    //@Cacheable(value = "Titles")
-    public ResponseEntity<List<String>> getTitles()
+    public ResponseEntity<List<TitlesDTO>> getTitles()
     {
         final var authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getPrincipal().toString();
 
-        final var flashCards = service.getFlashCards(name);
-        return ResponseEntity.ok().body(flashCards.stream().map(fl -> fl.getTitle()).toList());
+        final var flashCards = service.getUserTitles(name);
+        return ResponseEntity.ok().body(flashCards);
     }
 
-    @GetMapping("/{title}")
-    //@Cacheable(value = "Questions", key = "#title")
-    public ResponseEntity<List<Questions>> getQuestions(@PathVariable("title") String title)
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Questions>> getQuestions(@PathVariable("id") long id)
     {
-        final var flashCardSet = service.getFlashCardSet(title);
-        final var questions =  flashCardSet.getQuestions();
-
+        final var questions = service.getSetQuestions(id);
         return ResponseEntity.ok().body(questions);
     }
 
-    @DeleteMapping("/{title}")
-    /*@Caching(evict = {
-            @CacheEvict(value="Titles"),
-            @CacheEvict(value="Questions", key="#title"),
-    })*/
-    public ResponseEntity<Void> deleteSet(@PathVariable("title") String title)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSet(@PathVariable("id") long id)
     {
-        service.deleteSet(title);
+        final var authentication = SecurityContextHolder.getContext().getAuthentication();
+        final String name = authentication.getPrincipal().toString();
+
+        service.deleteSet(id, name);
         return  ResponseEntity.noContent().build();
     }
 }

@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../../main";
 
 import type { RootState } from "../../Store/store";
 
@@ -12,6 +11,7 @@ import { addError } from "../../Store/errorState";
 import './NewCardStyle.css';
 import useTitle from "../../Hooks/useTitle";
 import type { FlashCardInfo } from "../../Utils/flashCardStatUtils";
+import { queryClient } from "../../main";
 
 function NewCardPage() {
     const flashCards = useSelector((state: RootState) => state.FLASH_CARD_STATE_NAME.flashCards);
@@ -21,17 +21,12 @@ function NewCardPage() {
     const { error, isError, mutate } = useMutation({
         mutationFn: ({ title, flashCards} : {title: string, flashCards: FlashCardInfo[]}) => addNewFlashCardSet(title, flashCards),
         onSuccess: () => {
-            queryClient.setQueryData(['titles'], (old: string[]) => [...old, title])
+            queryClient.invalidateQueries({queryKey: ['titles']});
         },
         onError: (e: Error) => {
             dispatch(addError(e.message));
         }
     })
-
-    /*const APIcall = async () => {
-        mutate({title, flashCards});
-        queryClient.invalidateQueries({ queryKey: ['titles']})
-    }*/
 
     return (
         <div className='newcardpage'>

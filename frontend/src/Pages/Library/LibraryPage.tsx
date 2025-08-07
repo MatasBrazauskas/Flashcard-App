@@ -1,4 +1,3 @@
-//import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useQuery, useMutation } from '@tanstack/react-query';
 
@@ -20,16 +19,12 @@ function LibraryPage() {
     },);
 
     const { mutate } = useMutation({
-        mutationFn: async (title: string) => {
-            return await deleteFlashCardSet(title);
+        mutationFn: async (id: number) => {
+            return await deleteFlashCardSet(id);
         },
-
-        onSuccess: (title) => {
-            queryClient.setQueryData(['titles'], (old: string[]) => {
-                old.filter(i => i !== title)
-            })
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['titles']});
         },
-
         onError: (e : Error) => {
             dispatch(addError(e.message));
         }
@@ -43,10 +38,10 @@ function LibraryPage() {
             </div>}
             <div>Your Library</div>
 
-            {data?.map((title, i) => {
+            {data?.map(({title, id }, i) => {
                 return (
                     <div key={i}>
-                        <TitleCard title={title} deleteCard={mutate}/>
+                        <TitleCard title={title} id={id} deleteCard={mutate}/>
                     </div>
                 )
             })}

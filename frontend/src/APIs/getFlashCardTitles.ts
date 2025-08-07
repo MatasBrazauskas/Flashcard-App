@@ -1,7 +1,8 @@
 import { FLASH_CARD_ROUTE, JWT, HTTP_STATUS } from "../Constants/constants";
 import { GETTING_USER_FLASH_CARD_TITLES_ERROR } from "../Utils/errorStateUtils";
+import { type TitlesDTO } from "../Utils/apiUtils";
 
-async function getFlashCardTitles() : Promise<string[]> {
+async function getFlashCardTitles() : Promise<TitlesDTO[]> {
     const jwtToken = sessionStorage.getItem(JWT);
 
     try{
