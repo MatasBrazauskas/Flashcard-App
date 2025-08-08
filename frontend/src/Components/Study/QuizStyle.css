@@ -1,0 +1,96 @@
+.cont {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 50px;
+    font-weight: bold;
+    background-color:blue;
+    color: white;
+    border-radius: 10px;;
+
+    padding: 200px;
+    margin: 20px;
+    border: 1px white solid;
+}
+
+.buts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.study button{
+    color: white;
+    background-color: rgb(0, 0, 189);
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    font-weight: bold;
+
+    border-radius: 10px;
+    padding: 20px 70px 20px 70px;
+}
+
+.arrow{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    padding: 20px;
+    width: 80%;
+    border-radius: 10px;
+    background-color: blue;
+}
+
+.arrow div{
+    margin: 10px;
+    color: white;
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.arrow button{
+    background-color: rgb(99, 176, 248);
+    border: 1px solid white;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: bold;
+
+    border-radius: 25%;
+
+    width: 50px;
+    height: 50px;
+}
+
+.temp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 10px;
+    color: black;
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    font-weight: bold;
+
+    padding: 10px;
+    margin: 10px;
+}
+
+.temp button {
+    background-color: blue;
+    color: white;
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    font-weight: bold;
+
+    border-radius: 10px;
+
+    border: 0px;
+}

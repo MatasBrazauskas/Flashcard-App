@@ -35,19 +35,21 @@ export const queryClient = new QueryClient({
 
 function App() {
     return (
-      <BrowserRouter>
-      <Routes>
-        <Route path={OAUTH_PAGE_URL} element={<OAuthPage />} />
-        <Route path={MAIN_PAGE_URL} element={<MainPage />}>
-          <Route path={HOME_PAGE_URL} element={<HomeComponent />} />
-          <Route path={NEW_CARD_PAGE_URL} element={<NewCardComponent />} />
-          <Route path={PROFILE_PAGE_URL} element={<ProfilePage/>} />
-          <Route path={LIBRARY_PAGE_URL} element={<LibraryComponent />}/>
-          <Route path={`${STUDY_PAGE_URL}/:title/:id`} element={<StudyPage />}/>
-          <Route index element={<Navigate to={HOME_PAGE_URL} />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <div className='main'>
+        <BrowserRouter>
+        <Routes>
+          <Route path={OAUTH_PAGE_URL} element={<OAuthPage />} />
+          <Route path={MAIN_PAGE_URL} element={<MainPage />}>
+            <Route path={HOME_PAGE_URL} element={<HomeComponent />} />
+            <Route path={NEW_CARD_PAGE_URL} element={<NewCardComponent />} />
+            <Route path={PROFILE_PAGE_URL} element={<ProfilePage/>} />
+            <Route path={LIBRARY_PAGE_URL} element={<LibraryComponent />}/>
+            <Route path={`${STUDY_PAGE_URL}/:title/:id`} element={<StudyPage />}/>
+            <Route index element={<Navigate to={HOME_PAGE_URL} />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
