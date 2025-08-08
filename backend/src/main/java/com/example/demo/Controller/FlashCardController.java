@@ -62,4 +62,11 @@ public class FlashCardController
         service.deleteSet(id, name);
         return  ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{setId}/{term}")
+    public ResponseEntity<Void> deleteQuestionFromSet(@PathVariable("setId") long setId, @PathVariable("term") String term)
+    {
+        service.deleteSetQuestion(setId, term);
+        return  ResponseEntity.noContent().build();
+    }
 }

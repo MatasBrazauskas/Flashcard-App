@@ -96,4 +96,10 @@ public class FlashCardService
         qRepo.deleteById(id);
         fRepo.deleteById((int)id);
     }
+
+    @CacheEvict(value=Constants.QUESTIONS_CACHE, key="setId")
+    public void deleteSetQuestion(long setId, String term)
+    {
+        qRepo.deleteQuestion(setId, term);
+    }
 }

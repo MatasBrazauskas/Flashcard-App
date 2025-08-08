@@ -19,4 +19,9 @@ public interface QuestionsRepo extends JpaRepository<Questions, Integer>
     @Modifying
     @Query(value = "DELETE FROM " + Constants.QUESTIONS_TABLE + " WHERE flash_card_set_id = :id",nativeQuery = true)
     public void deleteById(@Param("id")long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM " + Constants.QUESTIONS_TABLE + " WHERE flash_card_set_id = :setId and term = :term", nativeQuery = true)
+    public void deleteQuestion(@Param("setId") long setId, @Param("term") String term);
 }
